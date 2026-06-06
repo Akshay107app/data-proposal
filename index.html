@@ -155,7 +155,13 @@ const messages = [
 let count = 0;
 let yesSize = 20;
 
-function moveButton() {
+function moveButton(const photo =
+document.getElementById("randomPhoto");
+
+const randomIndex =
+Math.floor(Math.random() * photos.length);
+
+photo.src = photos[randomIndex];) {
 
     const btnWidth = noBtn.offsetWidth;
     const btnHeight = noBtn.offsetHeight;
