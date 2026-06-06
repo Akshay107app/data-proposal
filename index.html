@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Date Proposal ❤️</title>
+<title> shell we go on Movie Proposal ❤️</title>
 
 <style>
 *{
@@ -152,28 +152,19 @@ const messages = [
 let count = 0;
 let yesSize = 20;
 
-function moveButton(){
+function moveButton() {
 
-    const maxX = window.innerWidth - 140;
-    const maxY = window.innerHeight - 120;
+    const btnWidth = noBtn.offsetWidth;
+    const btnHeight = noBtn.offsetHeight;
+
+    const maxX = window.innerWidth - btnWidth - 20;
+    const maxY = window.innerHeight - btnHeight - 20;
 
     const x = Math.random() * maxX;
     const y = Math.random() * maxY;
 
     noBtn.style.left = x + "px";
     noBtn.style.top = y + "px";
-
-    yesSize += 8;
-
-    yesBtn.style.fontSize = yesSize + "px";
-    yesBtn.style.padding =
-        (15 + count * 2) + "px " +
-        (30 + count * 4) + "px";
-
-    question.textContent =
-        messages[count % messages.length];
-
-    count++;
 }
 
 noBtn.addEventListener("mouseover", moveButton);
