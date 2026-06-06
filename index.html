@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Date Proposal ❤️</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    background:#ffe6f0;
+    text-align:center;
+    overflow:hidden;
+}
+
+.container{
+    height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+}
+
+h1{
+    color:#ff2d75;
+    margin-bottom:20px;
+}
+
+img{
+    width:280px;
+    max-width:80%;
+    border-radius:20px;
+    margin-bottom:25px;
+    box-shadow:0 8px 20px rgba(0,0,0,.15);
+}
+
+.buttons{
+    position:relative;
+    width:100%;
+    height:180px;
+}
+
+button{
+    padding:15px 30px;
+    border:none;
+    border-radius:12px;
+    cursor:pointer;
+    font-size:20px;
+    transition:.3s;
+}
+
+#yesBtn{
+    background:#4CAF50;
+    color:white;
+}
+
+#noBtn{
+    background:#ff4d4d;
+    color:white;
+    position:absolute;
+    left:60%;
+    top:20px;
+}
+
+#dateScreen{
+    display:none;
+}
+
+input[type="date"]{
+    padding:12px;
+    font-size:18px;
+    border-radius:10px;
+    border:1px solid #ccc;
+    margin-top:20px;
+}
+
+#confetti{
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+}
+</style>
+
+</head>
+
+<body>
+
+<canvas id="confetti"></canvas>
+
+<div class="container" id="mainScreen">
+
+```
+<img src="photo1.jpg" alt="photo">
+
+<h1 id="question">
+    Will You Go On A Date With Me? ❤️
+</h1>
+
+<div class="buttons">
+    <button id="yesBtn">YES ❤️</button>
+    <button id="noBtn">NO 😢</button>
+</div>
+```
+
+</div>
+
+<div class="container" id="dateScreen">
+
+```
+<img src="photo2.jpg" alt="photo">
+
+<h1>YAYYYYY!!! 🥰❤️</h1>
+
+<h2>Pick our date!</h2>
+
+<input type="date" id="datePicker">
+
+<br><br>
+
+<button onclick="confirmDate()">
+    Confirm Date 💕
+</button>
+```
+
+</div>
+
+<script>
+
+const noBtn = document.getElementById("noBtn");
+const yesBtn = document.getElementById("yesBtn");
+const question = document.getElementById("question");
+
+const messages = [
+"Are you sure? 🥺",
+"Really sure? 😭",
+"Think again ❤️",
+"Pleaseeeee 🥹",
+"Last chance 😅",
+"You don't mean that 😢",
+"Try YES instead 😍",
+"YES is the correct answer ❤️"
+];
+
+let count = 0;
+let yesSize = 20;
+
+function moveButton(){
+
+    const maxX = window.innerWidth - 140;
+    const maxY = window.innerHeight - 120;
+
+    const x = Math.random() * maxX;
+    const y = Math.random() * maxY;
+
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
+
+    yesSize += 8;
+
+    yesBtn.style.fontSize = yesSize + "px";
+    yesBtn.style.padding =
+        (15 + count * 2) + "px " +
+        (30 + count * 4) + "px";
+
+    question.textContent =
+        messages[count % messages.length];
+
+    count++;
+}
+
+noBtn.addEventListener("mouseover", moveButton);
+noBtn.addEventListener("click", moveButton);
+
+yesBtn.addEventListener("click", () => {
+
+    document.getElementById("mainScreen").style.display="none";
+    document.getElementById("dateScreen").style.display="flex";
+
+    startConfetti();
+});
+
+function confirmDate(){
+
+    const date =
+    document.getElementById("datePicker").value;
+
+    if(!date){
+        alert("Pick a date first ❤️");
+        return;
+    }
+
+    alert(
+      "It's a date! ❤️\n\n" +
+      "Selected Date: " + date
+    );
+}
+
+function startConfetti(){
+
+const canvas =
+document.getElementById("confetti");
+
+const ctx =
+canvas.getContext("2d");
+
+canvas.width =
+window.innerWidth;
+
+canvas.height =
+window.innerHeight;
+
+const pieces = [];
+
+for(let i=0;i<150;i++){
+
+pieces.push({
+x:Math.random()*canvas.width,
+y:Math.random()*canvas.height,
+r:Math.random()*8+2,
+d:Math.random()*150
+});
+
+}
+
+function draw(){
+
+ctx.clearRect(
+0,0,
+canvas.width,
+canvas.height
+);
+
+for(let i=0;i<pieces.length;i++){
+
+const p = pieces[i];
+
+ctx.beginPath();
+
+ctx.arc(
+p.x,
+p.y,
+p.r,
+0,
+Math.PI*2
+);
+
+ctx.fillStyle =
+`hsl(${Math.random()*360},
+100%,60%)`;
+
+ctx.fill();
+
+p.y += 3;
+
+if(p.y > canvas.height){
+p.y = -10;
+}
+
+}
+
+requestAnimationFrame(draw);
+
+}
+
+draw();
+
+}
+
+</script>
+
+</body>
+</html>
