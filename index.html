@@ -1,372 +1,69 @@
-<!DOCTYPE html>
 
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Movie Proposal ❤️</title>
+from your HTML.
 
-<style>
+The section should look like:
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Arial,sans-serif;
-}
-
-body{
-    background:#ffe6f0;
-    text-align:center;
-    overflow:hidden;
-}
-
-.container{
-    height:100vh;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    padding:20px;
-}
-
-h1{
-    color:#ff2d75;
-    margin-bottom:15px;
-}
-
-h2{
-    color:#444;
-    margin-top:10px;
-}
-
-#randomPhoto{
-    width:250px;
-    height:250px;
-    object-fit:cover;
-    border-radius:15px;
-    margin:15px 0;
-    box-shadow:0 5px 15px rgba(0,0,0,0.15);
-}
-
-.buttons{
-    position:relative;
-    width:100%;
-    height:220px;
-}
-
-button{
-    padding:15px 30px;
-    border:none;
-    border-radius:12px;
-    cursor:pointer;
-    font-size:20px;
-    transition:0.3s;
-}
-
-#yesBtn{
-    background:#4CAF50;
-    color:white;
-}
-
-#noBtn{
-    background:#ff4d4d;
-    color:white;
-    position:absolute;
-    left:60%;
-    top:20px;
-}
-
-#movieScreen{
-    display:none;
-}
-
-input[type="date"]{
-    padding:12px;
-    font-size:18px;
-    border-radius:10px;
-    border:1px solid #ccc;
-    margin-top:20px;
-}
-
-#confetti{
-    position:fixed;
-    inset:0;
-    pointer-events:none;
-}
-
-.successImage{
-    width:220px;
-    border-radius:20px;
-    margin-bottom:20px;
-}
-
-</style>
-
-</head>
-
-<body>
-
-<canvas id="confetti"></canvas>
-
+:::writing{variant="document" id="38172"}
 <div class="container" id="mainScreen">
 
-```
-<h1 id="question">
-    Shall We Go To A Movie Together? 🍿🎬
-</h1>
+    <h1 id="question">
+        Shall We Go To A Movie Together? 🍿🎬
+    </h1>
 
-<img id="randomPhoto"
-     src="photo1.gif"
-     alt="movie gif">
+    <img id="randomPhoto"
+         src="photo1.gif"
+         alt="movie gif">
 
-<div class="buttons">
-    <button id="yesBtn">YES ❤️</button>
-    <button id="noBtn">NO 😢</button>
-</div>
-```
+    <div class="buttons">
+        <button id="yesBtn">YES ❤️</button>
+        <button id="noBtn">NO 😢</button>
+    </div>
 
 </div>
+:::
 
+And:
+
+:::writing{variant="document" id="38173"}
 <div class="container" id="movieScreen">
 
-```
-<img class="successImage"
-     src="success.gif"
-     alt="success">
+    <img class="successImage"
+         src="success.gif"
+         alt="success">
 
-<h1>YAYYYY!!! 🍿❤️</h1>
+    <h1>YAYYYY!!! 🍿❤️</h1>
 
-<h2>Let's pick a movie day!</h2>
+    <h2>Let's pick a movie day!</h2>
 
-<input type="date" id="datePicker">
+    <input type="date" id="datePicker">
 
-<br><br>
+    <br><br>
 
-<button onclick="confirmMovie()">
-    Confirm Movie Night 🎬
-</button>
-```
+    <button onclick="confirmMovie()">
+        Confirm Movie Night 🎬
+    </button>
 
 </div>
+:::
 
-<script>
+### Next check
 
-const photos = [
-    "photo1.gif",
-    "photo2.gif",
-    "photo3.jpg",
-    "photo4.jpg"
-];
+Open the page and press **F12 → Console**.
 
-const messages = [
-    "Come on, it'll be fun 🍿",
-    "Free popcorn maybe? 😋",
-    "Your choice of movie 🎬",
-    "Please? 🥺",
-    "Marvel? Comedy? Horror? 🍿",
-    "One movie won't hurt 😅",
-    "Think again 😭",
-    "The YES button looks better ❤️"
-];
+Add this line right after the `photos` array:
 
-const noBtn = document.getElementById("noBtn");
-const yesBtn = document.getElementById("yesBtn");
-const question = document.getElementById("question");
+:::writing{variant="document" id="38174"}
+console.log(photos);
+:::
 
-let count = 0;
-let yesSize = 20;
+Then add this inside `changeRandomPhoto()`:
 
-function moveButton(){
+:::writing{variant="document" id="38175"}
+console.log("Changing to:", photos[randomIndex]);
+:::
 
-    const btnWidth = noBtn.offsetWidth;
-    const btnHeight = noBtn.offsetHeight;
+If you see:
 
-    const maxX =
-        window.innerWidth - btnWidth - 20;
-
-    const maxY =
-        window.innerHeight - btnHeight - 20;
-
-    const x = Math.random() * maxX;
-    const y = Math.random() * maxY;
-
-    noBtn.style.left = x + "px";
-    noBtn.style.top = y + "px";
-
-    question.textContent =
-        messages[count % messages.length];
-
-    yesSize += 4;
-
-    yesBtn.style.fontSize =
-        yesSize + "px";
-
-    changeRandomPhoto();
-
-    spawnFloatingPhoto();
-    spawnFloatingPhoto();
-
-    count++;
-}
-
-function changeRandomPhoto(){
-
-    const photo =
-        document.getElementById("randomPhoto");
-
-    const randomIndex =
-        Math.floor(Math.random() * photos.length);
-
-    photo.src = photos[randomIndex];
-}
-
-function spawnFloatingPhoto(){
-
-    const img =
-        document.createElement("img");
-
-    img.src =
-        photos[Math.floor(
-            Math.random() * photos.length
-        )];
-
-    img.style.position = "fixed";
-
-    img.style.width = "120px";
-    img.style.height = "120px";
-
-    img.style.objectFit = "cover";
-
-    img.style.borderRadius = "12px";
-
-    img.style.left =
-        Math.random() *
-        (window.innerWidth - 80) + "px";
-
-    img.style.top =
-        Math.random() *
-        (window.innerHeight - 80) + "px";
-
-    img.style.zIndex = "999";
-
-    document.body.appendChild(img);
-
-    setTimeout(() => {
-        img.remove();
-    }, 1800);
-}
-
-noBtn.addEventListener(
-    "mouseover",
-    moveButton
-);
-
-noBtn.addEventListener(
-    "click",
-    moveButton
-);
-
-yesBtn.addEventListener(
-    "click",
-    () => {
-
-        document.getElementById(
-            "mainScreen"
-        ).style.display = "none";
-
-        document.getElementById(
-            "movieScreen"
-        ).style.display = "flex";
-
-        startConfetti();
-    }
-);
-
-function confirmMovie(){
-
-    const date =
-        document.getElementById(
-            "datePicker"
-        ).value;
-
-    if(!date){
-        alert("Pick a movie day first 🍿");
-        return;
-    }
-
-    alert(
-        "Movie night confirmed! 🍿❤️\n\n" +
-        "Date: " + date
-    );
-}
-
-function startConfetti(){
-
-    const canvas =
-        document.getElementById("confetti");
-
-    const ctx =
-        canvas.getContext("2d");
-
-    canvas.width =
-        window.innerWidth;
-
-    canvas.height =
-        window.innerHeight;
-
-    const pieces = [];
-
-    for(let i=0;i<150;i++){
-
-        pieces.push({
-            x:Math.random()*canvas.width,
-            y:Math.random()*canvas.height,
-            r:Math.random()*8+2
-        });
-    }
-
-    function draw(){
-
-        ctx.clearRect(
-            0,
-            0,
-            canvas.width,
-            canvas.height
-        );
-
-        pieces.forEach(p=>{
-
-            ctx.beginPath();
-
-            ctx.arc(
-                p.x,
-                p.y,
-                p.r,
-                0,
-                Math.PI*2
-            );
-
-            ctx.fillStyle =
-                `hsl(${Math.random()*360},
-                100%,60%)`;
-
-            ctx.fill();
-
-            p.y += 3;
-
-            if(p.y > canvas.height){
-                p.y = -10;
-            }
-        });
-
-        requestAnimationFrame(draw);
-    }
-
-    draw();
-}
-
-</script>
-
-</body>
-</html>
+```text
+Changing to: photo1.gif
+Changing to: photo2.gif
