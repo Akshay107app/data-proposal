@@ -34,12 +34,13 @@ h1{
     margin-bottom:20px;
 }
 
-img{
+#randomPhoto{
     width:280px;
     max-width:80%;
     border-radius:20px;
-    margin-bottom:25px;
-    box-shadow:0 8px 20px rgba(0,0,0,.15);
+    margin:20px 0;
+    transition:0.4s;
+    box-shadow:0 8px 20px rgba(0,0,0,0.2);
 }
 
 .buttons{
@@ -103,6 +104,8 @@ input[type="date"]{
 <h1 id="question">
     Will You Go On A Movie together With Me? ❤️
 </h1>
+    
+<img id="randomPhoto" src="photo1.jpg" alt="Movie Photo">
 
 <div class="buttons">
     <button id="yesBtn">YES ❤️</button>
@@ -139,14 +142,14 @@ const yesBtn = document.getElementById("yesBtn");
 const question = document.getElementById("question");
 
 const messages = [
+"Come on, it'll be fun 🍿",
 "Are you sure? 🥺",
-"Really sure? 😭",
-"Think again ❤️",
-"Pleaseeeee 🥹",
-"Last chance 😅",
-"You don't mean that 😢",
-"Try YES instead 😍",
-"YES is the correct answer ❤️"
+"Free popcorn maybe? 🍿😋",
+"One movie won't hurt 😅",
+"Marvel? Comedy? Your choice 🎬",
+"Think again 😭",
+"Please? 🥹",
+"The YES button looks better ❤️"
 ];
 
 let count = 0;
@@ -189,7 +192,7 @@ function confirmDate(){
     }
 
     alert(
-      "It's a date! ❤️\n\n" +
+      "It's a movie date! ❤️\n\n" +
       "Selected Date: " + date
     );
 }
