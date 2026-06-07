@@ -156,13 +156,19 @@ const photos = [
 
 const messages = [
     "Come on, it'll be fun 🍿",
+    "Are you sure? 🥺",
     "Free popcorn maybe? 😋",
-    "Your choice of movie 🎬",
-    "Please? 🥺",
-    "One movie won't hurt 😅",
+    "You pick the movie 🎬",
+    "I'll buy the snacks 🍫",
     "Think again 😭",
     "Marvel? Comedy? Horror? 🍿",
-    "The YES button looks better ❤️"
+    "Pretty please? 🥹",
+    "Last chance 😅",
+    "The YES button looks better ❤️",
+    "You know you want to 😏",
+    "Just one movie 🍿",
+    "Don't break my heart 💔",
+    "Click YES instead 😍"
 ];
 
 const noBtn = document.getElementById("noBtn");
@@ -187,8 +193,13 @@ function moveButton(){
     noBtn.style.left = x + "px";
     noBtn.style.top = y + "px";
 
-    question.textContent =
-        messages[count % messages.length];
+const randomMessage =
+    Math.floor(
+        Math.random() * messages.length
+    );
+
+question.innerHTML =
+    messages[randomMessage];
 
     yesSize += 4;
 
