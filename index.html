@@ -1,12 +1,9 @@
 <!DOCTYPE html>
-
 <html lang="en">
-
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Movie Proposal ❤️</title>
+<title>Movie Proposal 🍿❤️</title>
 
 <style>
 
@@ -42,13 +39,13 @@ h2{
     margin-bottom:20px;
 }
 
-#randomPhoto{
-    width:280px;
-    height:280px;
+#mainPhoto{
+    width:300px;
+    height:300px;
     object-fit:cover;
     border-radius:20px;
-    margin:20px 0;
     box-shadow:0 10px 25px rgba(0,0,0,0.2);
+    margin-bottom:20px;
 }
 
 .buttons{
@@ -59,9 +56,9 @@ h2{
 
 button{
     padding:15px 30px;
+    font-size:20px;
     border:none;
     border-radius:12px;
-    font-size:20px;
     cursor:pointer;
     transition:0.3s;
 }
@@ -83,7 +80,7 @@ button{
     display:none;
 }
 
-input{
+input[type="date"]{
     padding:12px;
     font-size:18px;
     border-radius:10px;
@@ -92,67 +89,61 @@ input{
 
 .floatingPhoto{
     position:fixed;
-    width:90px;
-    height:90px;
+    width:110px;
+    height:110px;
     object-fit:cover;
     border-radius:15px;
-    z-index:999;
     box-shadow:0 5px 15px rgba(0,0,0,0.2);
+    z-index:999;
 }
 
 </style>
-
 </head>
 
 <body>
 
 <div class="container" id="mainScreen">
 
-```
-<h1 id="question">
-    Shall We Go To A Movie Together? 🍿🎬
-</h1>
+    <h1 id="question">
+        Shall We Go To A Movie Together? 🍿🎬
+    </h1>
 
-<img id="randomPhoto"
-     src="photo1.jpg"
-     alt="photo">
+    <img id="mainPhoto"
+         src="photo1.jpg"
+         alt="Photo">
 
-<div class="buttons">
-
-    <button id="yesBtn">
-        YES ❤️
-    </button>
-
-    <button id="noBtn">
-        NO 😢
-    </button>
-
-</div>
-```
+    <div class="buttons">
+        <button id="yesBtn">YES ❤️</button>
+        <button id="noBtn">NO 😢</button>
+    </div>
 
 </div>
 
 <div class="container" id="movieScreen">
 
-```
-<h1>YAYYYY!!! 🍿❤️</h1>
+    <h1>YAYYYY!!! 🍿❤️</h1>
 
-<h2>Let's pick a movie day!</h2>
+    <h2>Let's Pick A Movie Day!</h2>
 
-<img src="photo2.jpg"
-     style="width:250px;height:250px;
+    <img
+        src="photo2.jpg"
+        style="
+            width:280px;
+            height:280px;
             object-fit:cover;
             border-radius:20px;
-            margin-bottom:20px;">
+            margin-bottom:20px;
+            box-shadow:0 10px 25px rgba(0,0,0,0.2);
+        "
+    >
 
-<input type="date" id="datePicker">
+    <input type="date" id="datePicker">
 
-<br><br>
+    <br><br>
 
-<button onclick="confirmMovie()">
-    Confirm Movie Night 🎬
-</button>
-```
+    <button onclick="confirmMovie()">
+        Confirm Movie Night 🎬
+    </button>
 
 </div>
 
@@ -174,36 +165,24 @@ const messages = [
     "The YES button looks better ❤️"
 ];
 
-const noBtn =
-document.getElementById("noBtn");
-
-const yesBtn =
-document.getElementById("yesBtn");
-
-const question =
-document.getElementById("question");
-
-const randomPhoto =
-document.getElementById("randomPhoto");
+const noBtn = document.getElementById("noBtn");
+const yesBtn = document.getElementById("yesBtn");
+const question = document.getElementById("question");
+const mainPhoto = document.getElementById("mainPhoto");
 
 let count = 0;
 let yesSize = 20;
 
 function moveButton(){
 
-    const btnWidth =
-        noBtn.offsetWidth;
+    const btnWidth = noBtn.offsetWidth;
+    const btnHeight = noBtn.offsetHeight;
 
-    const btnHeight =
-        noBtn.offsetHeight;
+    const maxX = window.innerWidth - btnWidth - 20;
+    const maxY = window.innerHeight - btnHeight - 20;
 
-    const x =
-        Math.random() *
-        (window.innerWidth - btnWidth - 20);
-
-    const y =
-        Math.random() *
-        (window.innerHeight - btnHeight - 20);
+    const x = Math.random() * maxX;
+    const y = Math.random() * maxY;
 
     noBtn.style.left = x + "px";
     noBtn.style.top = y + "px";
@@ -227,11 +206,9 @@ function moveButton(){
 function changePhoto(){
 
     const randomIndex =
-        Math.floor(
-            Math.random() * photos.length
-        );
+        Math.floor(Math.random() * photos.length);
 
-    randomPhoto.src =
+    mainPhoto.src =
         photos[randomIndex];
 }
 
@@ -244,21 +221,17 @@ function spawnPhoto(){
         "floatingPhoto";
 
     img.src =
-        photos[
-            Math.floor(
-                Math.random() * photos.length
-            )
-        ];
+        photos[Math.floor(
+            Math.random() * photos.length
+        )];
 
     img.style.left =
         Math.random() *
-        (window.innerWidth - 120)
-        + "px";
+        (window.innerWidth - 120) + "px";
 
     img.style.top =
         Math.random() *
-        (window.innerHeight - 120)
-        + "px";
+        (window.innerHeight - 120) + "px";
 
     document.body.appendChild(img);
 
@@ -299,17 +272,13 @@ function confirmMovie(){
         ).value;
 
     if(!date){
-
-        alert(
-            "Pick a movie day first 🍿"
-        );
-
+        alert("Pick a movie day first 🍿");
         return;
     }
 
     alert(
-        "Movie Night Confirmed! ❤️🍿\n\n" +
-        "Date: " + date
+        "Movie Night Confirmed! ❤️🍿\n\nDate: " +
+        date
     );
 }
 
